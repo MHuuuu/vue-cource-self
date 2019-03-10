@@ -5,15 +5,19 @@ import getters from './getters'
 import mutations from './mutations'
 import actions from './actions'
 import user from './module/user'
+import saveInLocal from './plugin/saveInLocal'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  //strict严格模式开启时，非mutation时改值解报错
+  strict:process.env.NODE_ENV==='development',
   state,
   getters,
   mutations,
   actions,
   modules:{
     user
-  }
+  },
+  plugins:[saveInLocal]
 })

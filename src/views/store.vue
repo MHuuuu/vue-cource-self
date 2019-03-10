@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-input @input="handleInput"/>
-    <!-- <p>{{inputValue}} ->latsletter {{inputValueLL}}</p> -->
+    <p>{{inputValue}} ->latsletter {{inputValueLL}}</p>
     <!-- <a-show :content="inputValue"/> -->
     <p>appName:{{appName}},appVersion:{{appVersion}}</p>
     <p>userName:{{userName}},firstUserName:{{firstUserName}}</p>
