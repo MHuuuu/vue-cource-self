@@ -1,59 +1,53 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link :to="{name:'home'}">Home</router-link>|
-      <router-link :to="{name:'about'}">About</router-link>
+      <router-link :to="{ name: 'home' }">Home</router-link> |
+      <router-link :to="{ name: 'about' }">About</router-link>
     </div>
     <transition-group :name="routerTransition">
-      <router-view key="dufault"/>
+      <router-view key="default"/>
       <router-view key="email" name="email"/>
       <router-view key="tel" name="tel"/>
     </transition-group>
   </div>
 </template>
+
 <script>
 export default {
-  data() {
+  data () {
     return {
-      routerTransition: ""
-    };
+      routerTransition: ''
+    }
   },
   watch: {
     '$route' (to) {
-      to.query &&
-        to.query.transitionName &&
-        (this.routerTransition = to.query.transitionName);
+      to.query && to.query.transitionName && (this.routerTransition = to.query.transitionName)
     }
   }
 }
 </script>
+
 <style lang="less">
-.router-enter {
+.router-enter{
   opacity: 0;
 }
-
-.router-enter-active {
+.router-enter-active{
   transition: opacity 1s ease;
 }
-
-.router-enter-to {
+.router-enter-to{
   opacity: 1;
 }
-
-.router-leave {
+.router-leave{
   opacity: 1;
 }
-
-.router-leave-active {
+.router-leave-active{
   transition: opacity 1s ease;
 }
-
-.router-leave-to {
+.router-leave-to{
   opacity: 0;
 }
-
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

@@ -1,3 +1,3 @@
 <template>
-  <dir>404-Page</dir>
+  <div>404-page</div>
 </template>

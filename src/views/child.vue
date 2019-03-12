@@ -1,11 +1,5 @@
 <template>
   <div>
-    child
+    I am child
   </div>
 </template>
-<script>
-export default {
-  //
-}
-</script>
-

@@ -1,87 +1,108 @@
 <template>
   <div>
-    <a-input @input="handleInput"/>
-    <p>{{inputValue}} ->latsletter {{inputValueLL}}</p>
+    <a-input v-model="stateValue"/>
+    <p>{{ stateValue }} -> lastLetter is {{ inputValueLastLetter }}</p>
     <!-- <a-show :content="inputValue"/> -->
-    <p>appName:{{appName}},appVersion:{{appVersion}}</p>
-    <p>userName:{{userName}},firstUserName:{{firstUserName}}</p>
+    <p>appName: {{ appName }}, appNameWithVersion : {{ appNameWithVersion }}</p>
+    <p>userName : {{ userName }}, firstLetter is : {{ firstLetter }}</p>
     <button @click="handleChangeAppName">修改appName</button>
-    <button @click="handleChangeUserName">修改userName</button>
-    <button @click="registeModule">动态注册列表</button>
-    <p v-for="(li,index) in todoList" :key="index">{{li}}</p>
+    <p>{{ appVersion }}</p>
+    <button @click="changeUserName">修改用户名</button>
+    <button @click="registerModule">动态注册模块</button>
+    <p v-for="(li, index) in todoList" :key="index">{{ li }}</p>
   </div>
 </template>
 <script>
-import AInput from "_c/AInput.vue";
-import AShow from "_c/AShow.vue";
-import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
-
-//cosnt mapState =vue.mapState
-
+import AInput from '_c/AInput.vue'
+import AShow from '_c/AShow.vue'
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 export default {
-  name: "store",
-  data() {
+  name: 'store',
+  data () {
     return {
-      inputValue: ""
-    };
+      inputValue: ''
+    }
   },
   components: {
     AInput,
     AShow
   },
   computed: {
-    //展开操作符，效果同下，传出数组、对象
-    ...mapState(
-      //数组写法['appName']
-      {
-        appName: state => state.appName,
-        userName: state => state.user.userName,
-        todoList: state => state.todo?state.todo.todoList:[]
+    // ...mapState({
+    //   appName: state => state.appName,
+    //   userName: state => state.user.userName
+    // })
+    ...mapState({
+      userName: state => state.user.userName,
+      appVersion: state => state.appVersion,
+      todoList: state => state.user.todo ? state.user.todo.todoList : [],
+    }),
+    stateValue: {
+      get () {
+        return this.$store.state.stateValue
       },
-    ),
-    ...mapGetters(["firstUserName", "appVersion"]),
-    /* appName() {
-      //$store.state
-      return this.$store.state.appName;
+      set (val) {
+        this.SET_STATE_VALUE(val)
+      }
     },
-    userName() {
-      return this.$store.state.user.userName;
-    } */
-    /* appVersion(){
-      return this.$store.getters.appVersion
-    }, */
-    inputValueLL() {
-      return this.inputValue.substr(-1, 1);
+    ...mapGetters([
+      'appNameWithVersion',
+      'firstLetter'
+    ]),
+    appName () {
+      return this.$store.state.appName
+    },
+    // appNameWithVersion () {
+    //   return this.$store.getters.appNameWithVersion
+    // },
+    // userName () {
+    //   return this.$store.state.user.userName
+    // },
+    inputValueLastLetter () {
+      return this.inputValue.substr(-1, 1)
     }
   },
   methods: {
-    ...mapMutations(["SET_APP_NAME", "SET_USER_NAME"]),
-    ...mapActions(["updateAppName"]),
-    handleInput(val) {
-      this.inputValue = val;
+    ...mapMutations([
+      'SET_USER_NAME',
+      'SET_APP_NAME',
+      'SET_STATE_VALUE'
+    ]),
+    ...mapActions([
+      'updateAppName'
+    ]),
+    handleInput (val) {
+      this.inputValue = val
     },
-    handleChangeAppName() {
-      //this.SET_APP_NAME("newAPPName");
-      // this.$store.commit("SET_APP_NAME");
-      this.updateAppName();
+    handleChangeAppName () {
+      // this.$store.commit({
+      //   type: 'SET_APP_NAME',
+      //   appName: 'newAppName'
+      // })
+      // this.SET_APP_NAME({
+      //   appName: 'newAppName'
+      // })
+      this.updateAppName()
+      // this.$store.commit('SET_APP_VERSION')
     },
-    handleChangeUserName() {
-      this.SET_USER_NAME("newUser");
-      //dispath荷载写法，等同与mapActions
-      //this.$store.dispatch('updateAppName','123')
+    changeUserName () {
+      // this.$store.state.user.userName = 'haha' 错误的方法
+      this.SET_USER_NAME('vue-cource')
+      // this.$store.dispatch('updateAppName', '123')
     },
-    registeModule() {
-      //注册模块
-      //如果是给模块中添加一个模块，这"todo" -> ["parentModule","todo"]
-      this.$store.registerModule("todo", {
+    registerModule () {
+      this.$store.registerModule(['user', 'todo'], {
         state: {
           todoList: [
-            '111',
-            '222'
+            '学习mutations',
+            '学习actions'
           ]
         }
-      });
+      })
+    },
+    handleStateValueChange (val) {
+      this.SET_STATE_VALUE(val)
     }
   }
-};
+}
 </script>

@@ -2,6 +2,4 @@ import Mock from 'mockjs'
 
 //
 
-export default{
-  //
-}
+export default Mock

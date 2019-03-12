@@ -10,14 +10,13 @@ import saveInLocal from './plugin/saveInLocal'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  //strict严格模式开启时，非mutation时改值解报错
-  strict:process.env.NODE_ENV==='development',
+  strict: process.env.NODE_ENV === 'development',
   state,
   getters,
   mutations,
   actions,
-  modules:{
+  modules: {
     user
   },
-  plugins:[saveInLocal]
+  plugins: [ saveInLocal ]
 })
