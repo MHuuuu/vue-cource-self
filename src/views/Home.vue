@@ -10,52 +10,56 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-import { getUserInfo } from '@/api/user'
+import HelloWorld from "@/components/HelloWorld.vue";
+import { getUserInfo } from "@/api/user";
 
 export default {
-  name: 'home',
+  name: "home",
   components: {
     HelloWorld
   },
   props: {
     food: {
       type: String,
-      default: 'apple'
+      default: "apple"
     }
   },
-  beforeRouteEnter (to, from, next) {
+  //组件内钩子
+  //页面渲染前,故this对象无用
+  beforeRouteEnter(to, from, next) {
     next(vm => {
       // console.log(vm)
-    })
+    });
   },
-  beforeRouteLeave (to, from, next) {
+  beforeRouteLeave(to, from, next) {
     // const leave = confirm('您确定要离开吗？')
     // if (leave) next()
     // else next(false)
-    next()
+    next();
   },
   methods: {
-    handleClick (type) {
-      if (type === 'back') this.$router.back()
-      else if (type === 'push') {
+    handleClick(type) {
+      if (type === "back") this.$router.back();
+       //push添加一道历史记录可供回退
+      else if (type === "push") {
         this.$router.push({
           name: `argu`,
           params: {
-            name: 'lison'
+            name: "lison"
           }
-        })
-      } else if (type === 'replace') {
+        });
+      } else if (type === "replace") {
+        //replace替换一道历史记录不可回退被替换的页面
         this.$router.replace({
-          name: 'parent'
-        })
+          name: "parent"
+        });
       }
     },
-    getInfo () {
+    getInfo() {
       getUserInfo({ userId: 21 }).then(res => {
-        console.log('res: ', res)
-      })
+        console.log("res: ", res.data);
+      });
     }
   }
-}
+};
 </script>
