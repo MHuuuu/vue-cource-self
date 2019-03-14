@@ -1,7 +1,7 @@
 <template>
   <div>
     <count-to ref="countTo" :end-val="endVal" @on-animation-end="handleEnd">
-      <span slot="left">总金额： </span>
+      <span slot="left">总金额：</span>
       <span slot="right">元</span>
     </count-to>
     <button @click="getNumber">获取数值</button>
@@ -15,19 +15,19 @@ export default {
   components: {
     CountTo
   },
-  data () {
+  data() {
     return {
       endVal: 100
     }
   },
   methods: {
-    getNumber () {
+    getNumber() {
       this.$refs.countTo.getCount()
     },
-    up () {
+    up() {
       this.endVal += Math.random() * 100
     },
-    handleEnd (endVal) {
+    handleEnd(endVal) {
       console.log('end -> ', endVal)
     }
   }

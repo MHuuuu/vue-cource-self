@@ -1,6 +1,8 @@
 <template>
   <div>
-    <slot name="left"></slot><span ref="number" :class="countClass" :id="eleId"></span><slot name="right"></slot>
+    <slot name="left"></slot>
+    <span ref="number" :class="countClass" :id="eleId"></span>
+    <slot name="right"></slot>
   </div>
 </template>
 <script>
@@ -8,17 +10,14 @@ import CountUp from 'countup'
 export default {
   name: 'CountTo',
   computed: {
-    eleId () {
+    eleId() {
       return `count_up_${this._uid}`
     },
-    countClass () {
-      return [
-        'count-to-number',
-        this.className
-      ]
+    countClass() {
+      return ['count-to-number', this.className]
     }
   },
-  data () {
+  data() {
     return {
       counter: {}
     }
@@ -93,10 +92,10 @@ export default {
     }
   },
   methods: {
-    getCount () {
+    getCount() {
       return this.$refs.number.innerText
     },
-    emitEndEvent () {
+    emitEndEvent() {
       setTimeout(() => {
         this.$nextTick(() => {
           this.$emit('on-animation-end', Number(this.getCount()))
@@ -105,19 +104,26 @@ export default {
     }
   },
   watch: {
-    endVal (newVal, oldVal) {
+    endVal(newVal, oldVal) {
       this.counter.update(newVal)
       this.emitEndEvent()
     }
   },
-  mounted () {
+  mounted() {
     this.$nextTick(() => {
-      this.counter = new CountUp(this.eleId, this.startVal, this.endVal, this.decimals, this.duration, {
-        useEasing: this.useEasing,
-        useGrouping: this.useGrouping,
-        separator: this.separator,
-        decimal: this.decimal
-      })
+      this.counter = new CountUp(
+        this.eleId,
+        this.startVal,
+        this.endVal,
+        this.decimals,
+        this.duration,
+        {
+          useEasing: this.useEasing,
+          useGrouping: this.useGrouping,
+          separator: this.separator,
+          decimal: this.decimal
+        }
+      )
       setTimeout(() => {
         this.counter.start()
         this.emitEndEvent()
