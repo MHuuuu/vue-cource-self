@@ -8,10 +8,10 @@ if (process.env.NODE_ENV !== 'production') require('./mock')
 Vue.config.productionTip = false
 Vue.prototype.$bus = Bus
 
-// const handleClick = event => {
-//   console.log(event)
-//   event.stopPropagation()
-// }
+/* const handleClick = event => {
+  console.log(event)
+  event.stopPropagation()
+} */
 
 // let list = [{ name: 'lison' }, { name: 'lili' }]
 /* const getLiEleArr = (h) => {
