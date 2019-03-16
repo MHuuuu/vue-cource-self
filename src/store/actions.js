@@ -1,13 +1,13 @@
 import { getAppName } from '@/api/app'
 
 const actions = {
-    /*
-    updatedAppName({commit}){}
-    ES6->写法等于
-    updatedAppName(paramsObj){
-      const commit=paraObj.commit
-    }
-  */
+  /*
+  updatedAppName({commit}){}
+  ES6->写法等于
+  updatedAppName(paramsObj){
+    const commit=paraObj.commit
+  }
+*/
   /*
   异步写法，太麻烦
   updateAppName({commit}) {

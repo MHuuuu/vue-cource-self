@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import routes from './router'
-import { setTitle } from '@/lib/util'
+import store from '@/store'
+import { setTitle, setToken, getToken } from '@/lib/util'
 
 Vue.use(Router)
 
@@ -9,16 +10,32 @@ const router = new Router({
   routes
 })
 
-const HAS_LOGINED = true
+// const HAS_LOGINED = false
 
 router.beforeEach((to, from, next) => {
   to.meta && setTitle(to.meta.title)
-  if (to.name !== 'login') {
-    if (HAS_LOGINED) next()
-    else next({ name: 'login' })
+  // if (to.name !== 'login') {
+  //   if (HAS_LOGINED) next()
+  //   else next({ name: 'login' })
+  // } else {
+  //   if (HAS_LOGINED) next({ name: 'home' })
+  //   else next()
+  // }
+  const token = getToken()
+  if (token) {
+    console.log('Token存在')
+    store.dispatch('authorization', token).then(() => {
+      if (to.name === 'login') next({ name: 'home' })
+      else next()
+    }).catch(() => {
+      console.log('Token检查为无效')
+      setToken('')
+      next({ name: 'login' })
+    })
   } else {
-    if (HAS_LOGINED) next({ name: 'home' })
-    else next()
+    console.log('Token不存在')
+    if (to.name === 'login') next()
+    else next({ name: 'login' })
   }
 })
 

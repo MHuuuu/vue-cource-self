@@ -1,4 +1,4 @@
-import vue from 'vue'
+// import vue from 'vue'
 
 const mutations = {
   SET_APP_NAME (state, params) {
