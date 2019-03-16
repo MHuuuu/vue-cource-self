@@ -7,7 +7,7 @@ const BASE_URL = process.env.NODE_ENV === 'procution' ? '/emmo-admin' : '/'
 module.exports = {
   baseUrl: BASE_URL,
   // 如果你不需要使用eslint，把lintOnSave设为false即可
-  lintOnSave: true,
+  lintOnSave: false,
   // 颗粒化Webpack
   chainWebpack: config => {
     config.resolve.alias
