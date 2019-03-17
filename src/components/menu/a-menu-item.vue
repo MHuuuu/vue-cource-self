@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  nmae: 'AMenuItem'
+  name: 'AMenuItem'
 }
 </script>
 

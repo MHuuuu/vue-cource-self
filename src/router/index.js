@@ -10,18 +10,18 @@ const router = new Router({
   routes
 })
 
-// const HAS_LOGINED = false
+const HAS_LOGINED = true
 
 router.beforeEach((to, from, next) => {
   to.meta && setTitle(to.meta.title)
-  // if (to.name !== 'login') {
-  //   if (HAS_LOGINED) next()
-  //   else next({ name: 'login' })
-  // } else {
-  //   if (HAS_LOGINED) next({ name: 'home' })
-  //   else next()
-  // }
-  const token = getToken()
+  if (to.name !== 'login') {
+    if (HAS_LOGINED) next()
+    else next({ name: 'login' })
+  } else {
+    if (HAS_LOGINED) next({ name: 'home' })
+    else next()
+  }
+  /* const token = getToken()
   if (token) {
     console.log('Token存在')
     store.dispatch('authorization', token).then(() => {
@@ -36,7 +36,7 @@ router.beforeEach((to, from, next) => {
     console.log('Token不存在')
     if (to.name === 'login') next()
     else next({ name: 'login' })
-  }
+  } */
 })
 
 // router.beforeResolve

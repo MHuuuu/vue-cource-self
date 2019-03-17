@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  nmae: 'AMenu'
+  name: 'AMenu'
 }
 </script>
 

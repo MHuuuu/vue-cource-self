@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  nmae: 'ASubmenu',
+  name: 'ASubmenu',
   data () {
     return {
       showChild: false
