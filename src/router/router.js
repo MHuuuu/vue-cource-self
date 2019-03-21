@@ -50,6 +50,11 @@ export default [
     props: true
   },
   {
+    path: '/upload',
+    name: 'upload',
+    component: () => import('@/views/upload.vue')
+  },
+  {
     path: '/count-to',
     name: 'count_to',
     component: () => import('@/views/count-to.vue')

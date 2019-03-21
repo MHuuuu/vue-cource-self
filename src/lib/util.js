@@ -84,3 +84,22 @@ export const expandSpecifiedFolder = (folderTree, id) => {
     return item
   })
 }
+
+// 通过创建表单来请求执行下载文件
+export const downloadFile = ({ url, params }) => {
+  const form = document.createElement('form')
+  form.setAttribute('action', url)
+  form.setAttribute('method', 'post')
+  for (const key in params) {
+    const input = document.createElement('input')
+    input.setAttribute('type', 'hidden')
+    input.setAttribute('name', key)
+    input.setAttribute('value', params[key])
+    // key是键名，params是对应的值名
+    // console.log(key, params[key])
+    form.appendChild(input)
+  }
+  document.body.appendChild(form)
+  form.submit()
+  form.remove()
+}
