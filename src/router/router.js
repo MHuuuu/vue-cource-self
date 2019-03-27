@@ -75,6 +75,11 @@ export default [
     component: () => import('@/views/menu-page.vue')
   },
   {
+    path: '/form',
+    name: 'form',
+    component: () => import('@/views/form.vue')
+  },
+  {
     // 嵌套路由
     path: '/parent',
     name: 'parent',
