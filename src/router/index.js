@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import routes from './router'
+import { routes } from './router'
 import store from '@/store'
 import { setTitle, setToken, getToken } from '@/lib/util'
+import { isFunction } from 'util'
 
 Vue.use(Router)
 
@@ -22,7 +23,8 @@ router.beforeEach((to, from, next) => {
     if (HAS_LOGINED) next({ name: 'home' })
     else next()
   } */
-  const token = getToken()
+
+  /* const token = getToken()
   if (token) {
     console.log('Token存在')
     store.dispatch('authorization', token).then(() => {
@@ -36,6 +38,25 @@ router.beforeEach((to, from, next) => {
   } else {
     console.log('Token不存在')
     if (to.name === 'login') next()
+    else next({ name: 'login' })
+  } */
+
+  const token = getToken()
+  if (token) {
+    if (!store.state.router.hasGetRules) {
+      store.dispatch('authorization').then(rules => {
+        store.dispatch('concatRoutes', rules).then(routers => {
+          router.addRoutes(routers)
+          next({ ...to, replace: true })
+        }).catch(() => {
+          next({ name: 'login' })
+        })
+      })
+    } else {
+      next()
+    }
+  } else {
+    if (to.name === 'login')next()
     else next({ name: 'login' })
   }
 })

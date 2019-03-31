@@ -1,7 +1,7 @@
 <template>
   <div>
     <input v-model="userName">
-    <input v-model="password">
+    <input v-model="password" >
     <button @click="handleSubmit">登录</button>
   </div>
 </template>
